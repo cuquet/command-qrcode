@@ -6,9 +6,7 @@ import {
   IListViewCommandSetListViewUpdatedParameters,
   IListViewCommandSetExecuteEventParameters
 } from '@microsoft/sp-listview-extensibility';
-import { Dialog } from '@microsoft/sp-dialog';
 
-import * as strings from 'CmdQrcodeCommandSetStrings';
 import { QRDialog } from './components/QRDialog';
 
 import styles from './CmdQrcodeCommandSet.module.scss';
@@ -52,7 +50,7 @@ export default class CmdQrcodeCommandSet extends BaseListViewCommandSet<ICmdQrco
   }
 
   @override
-  public onExecute(event: IListViewCommandSetExecuteEventParameters): void {
+  public async onExecute(event: IListViewCommandSetExecuteEventParameters): Promise<void> {
     switch (event.itemId) {
       case 'CMD_QR':
         const { site, list, web } = this.context.pageContext;
@@ -75,23 +73,30 @@ export default class CmdQrcodeCommandSet extends BaseListViewCommandSet<ICmdQrco
 
         // See if there is an item currently selected
         if (event.selectedRows.length > 0) {
-          // If an item is selected, get the selected item's information
           // Get Full Site Url 
-          relativeUrl = event.selectedRows[0].getValueByName('FileRef');
+          //**relativeUrl = event.selectedRows[0].getValueByName('FileRef');
           // Get FileName
           fileName = event.selectedRows[0].getValueByName('FileLeafRef');
+          // If an item is selected, get the selected item's information
+          // from JSON of field "=if(indexOf([$ContentTypeId], '0x0120') >= 0, '?id=' + [$FileRef], @currentWeb + '/_layouts/15/Doc.aspx?sourcedoc='+ [$UniqueId] + '&action=View')
+          if (event.selectedRows[0].getValueByName('ContentTypeId').indexOf("0x0120") >= 0) {
+            // Item is a folder
+            relativeUrl = '?id='+ event.selectedRows[0].getValueByName('FileRef');
+          }
+          else {
+            // Item is a file. Returns file url with id
+            relativeUrl = encodeURI('/_layouts/15/Doc.aspx?sourcedoc='+ event.selectedRows[0].getValueByName('UniqueId')) + '&action=View';
+          }
           absoluteUrl = `${rootSiteUrl}${relativeUrl}`;
         } else {
           let listFilter: string = "";
           // If no item is selected, get the link to the list and capture eventual filters
-          //**relativeUrl = list.serverRelativeUrl;
-          //**relativeUrl = this.context.pageContext.legacyPageContext['serverRequestPath']
           fileName = list.title;
           listFilter = (window.location.href.lastIndexOf("?FilterField1")!== -1)? window.location.href.substring(window.location.href.lastIndexOf("?FilterField1")):'';
           relativeUrl = encodeURI(this.context.pageContext.legacyPageContext['listUrl']) + listFilter;
           absoluteUrl = `${rootSiteUrl}${relativeUrl}`;
         }
-        //**console.log("siteUrl->"+siteUrl+"\nsiteRelativeUrl->"+siteRelativeUrl+"\nrootSiteUrl->"+rootSiteUrl);
+
         console.log("fileName->"+fileName+"\nrelativeUrl->"+relativeUrl+"\nabsoluteUrl->"+absoluteUrl);
         
         // Build a callout dialog
