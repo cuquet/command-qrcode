@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Elements xmlns="http://schemas.microsoft.com/sharepoint/">
+    <CustomAction
+        Title="CmdQrcode"
+        RegistrationId="101"
+        RegistrationType="List"
+        Location="ClientSideExtension.ListViewCommandSet"
+        ClientSideComponentId="88090d15-7a25-4354-9522-db93755c3783"
+        ClientSideComponentProperties="{}">
+    </CustomAction>
+</Elements>

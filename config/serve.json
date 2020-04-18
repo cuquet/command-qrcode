@@ -1,0 +1,25 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/core-build/serve.schema.json",
+  "port": 4321,
+  "https": true,
+  "serveConfigurations": {
+    "default": {
+      "pageUrl": "https://melindro.sharepoint.com/Documentos%20compartidos",
+      "customActions": {
+        "88090d15-7a25-4354-9522-db93755c3783": {
+          "location": "ClientSideExtension.ListViewCommandSet",
+          "properties": {}
+        }
+      }
+    },
+    "cmdQrcode": {
+      "pageUrl": "https://melindro.sharepoint.com/Documentos%20compartidos",
+      "customActions": {
+        "88090d15-7a25-4354-9522-db93755c3783": {
+          "location": "ClientSideExtension.ListViewCommandSet",
+          "properties": {}
+        }
+      }
+    }
+  }
+}

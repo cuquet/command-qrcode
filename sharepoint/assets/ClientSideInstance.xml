@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Elements xmlns="http://schemas.microsoft.com/sharepoint/">
+    <ClientSideComponentInstance
+        Title="CmdQrcode"
+        Location="ClientSideExtension.ListViewCommandSet"
+        ListTemplateId="101"
+        Properties="{}"
+        ComponentId="88090d15-7a25-4354-9522-db93755c3783" />
+</Elements>
