@@ -55,7 +55,7 @@ export default class CmdQrcodeCommandSet extends BaseListViewCommandSet<ICmdQrco
       case 'CMD_QR':
         const { site, list, web } = this.context.pageContext;
         // Get the site url from the page content
-        const siteUrl = site.absoluteUrl;
+        const siteUrl = web.absoluteUrl;
 
         // Get the relative URL
         const siteRelativeUrl: string = site.serverRelativeUrl;
@@ -64,7 +64,7 @@ export default class CmdQrcodeCommandSet extends BaseListViewCommandSet<ICmdQrco
         const endIndex = siteUrl.lastIndexOf(siteRelativeUrl);
         
         // Get the root site URL by removing the site name
-        const rootSiteUrl = (endIndex.toFixed.length > 1) ? siteUrl.substring(0, endIndex) : siteUrl;
+        const rootSiteUrl = (endIndex > 1) ? siteUrl.substr(0, endIndex) : siteUrl;
                 
         // We'll need the file's relative URL, the file name, and absolute URL
         let relativeUrl: string = "";
@@ -73,8 +73,6 @@ export default class CmdQrcodeCommandSet extends BaseListViewCommandSet<ICmdQrco
 
         // See if there is an item currently selected
         if (event.selectedRows.length > 0) {
-          // Get Full Site Url 
-          //**relativeUrl = event.selectedRows[0].getValueByName('FileRef');
           // Get FileName
           fileName = event.selectedRows[0].getValueByName('FileLeafRef');
           // If an item is selected, get the selected item's information
@@ -87,17 +85,17 @@ export default class CmdQrcodeCommandSet extends BaseListViewCommandSet<ICmdQrco
             // Item is a file. Returns file url with id
             relativeUrl = encodeURI('/_layouts/15/Doc.aspx?sourcedoc='+ event.selectedRows[0].getValueByName('UniqueId')) + '&action=View';
           }
-          absoluteUrl = `${rootSiteUrl}${relativeUrl}`;
+          absoluteUrl = `${siteUrl}${relativeUrl}`;
         } else {
           let listFilter: string = "";
           // If no item is selected, get the link to the list and capture eventual filters
           fileName = list.title;
-          listFilter = (window.location.href.lastIndexOf("?FilterField1")!== -1)? window.location.href.substring(window.location.href.lastIndexOf("?FilterField1")):'';
+          listFilter = (window.location.href.lastIndexOf("FilterField1")!== -1)? '?'+ window.location.href.substring(window.location.href.lastIndexOf("FilterField1")):'';
           relativeUrl = encodeURI(this.context.pageContext.legacyPageContext['listUrl']) + listFilter;
           absoluteUrl = `${rootSiteUrl}${relativeUrl}`;
         }
 
-        console.log("fileName->"+fileName+"\nrelativeUrl->"+relativeUrl+"\nabsoluteUrl->"+absoluteUrl);
+        console.log("fileName->"+fileName+"\nrootSiteUrl->"+rootSiteUrl+"\nsiteUrl->"+siteUrl+"\nsiteRelativeUrl->"+siteRelativeUrl+"\nrelativeUrl->"+relativeUrl+"\nabsoluteUrl->"+absoluteUrl);
         
         // Build a callout dialog
         const callout: QRDialog = new QRDialog();
