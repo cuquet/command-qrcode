@@ -34,13 +34,13 @@ This extension illustrates the following concepts:
 * Customizing the SVG icon at run-time
 * Generating a QR code for a selection
 * Downloading an SVG image as a PNG file
-* Copying an image to the clipboard
 
 ## Original Solution
 
 Solution|Author(s)
 --------|---------
 react-command-qrcode | Hugo Bernier ([Point Alliance](pointalliance.com), @bernierh)
+spfx-extension-js-command-qrcode | [Siddharth Vaghasia](https://siddharthvaghasia.com/)
 
 ## Version history
 
@@ -48,8 +48,12 @@ Version|Date|Comments
 -------|----|--------
 1.0|September 1, 2019|Initial release
 2.0|April 11, 2020|Filter metadata, translations
+3.0|August 8, 2020|Callout to Dialog and discard Copy actions. Replace QRcanvas-react by QRCode (navigator direct copy)
 
 ## 2.0 Angel 11/04/2020
-Cuando no se selecciona ningún fichero captura los filtros aplicados (según las columnas de metadatos y los incorpora a la URL de la biblioteca).
-Añadidos idiomas (es-es, ca-es, pt-pt) para los botones de la ventada de dialogo
+When no file is selected, it captures the applied filters (according to the metadata columns and incorporates them into the URL of the library).
+Added languages (es-es, ca-es, pt-pt) for the buttons of the dialog window
 
+## 3.0  Angel 08/08/2020
+Callout replaced  by Dialog (simplify css).
+Replace QRcanvas-react by QRCode (navigator direct copy). Now create an image (easy to copy) instead of canvas. It's simplify functions to download.

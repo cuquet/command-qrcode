@@ -3,7 +3,7 @@
   "solution": {
     "name": "command-qrcode-client-side-solution",
     "id": "66d6b563-ff05-42f1-83b3-6feb1199c2d0",
-    "version": "1.0.0.0",
+    "version": "3.0.0.0",
     "includeClientSideAssets": true,
     "isDomainIsolated": false,
     "iconPath": "Images/appIcon.png",
@@ -13,7 +13,7 @@
         "title": "Application Extension - QR Code client side solution.",
         "description": "Deploys a dialog with QR code according to  Client Side Component Id or page url.",
         "id": "31f1b1fb-e938-48b6-bce9-2cd06c8b907b",
-        "version": "1.0.0.0",
+        "version": "3.0.0.0",
         "assets": {
           "elementManifests": [
             "elements.xml",
@@ -24,6 +24,6 @@
     ]
   },
   "paths": {
-    "zippedPackage": "solution/command-qrcode.sppkg"
+    "zippedPackage": "solution/cmd-qrcode.sppkg"
   }
 }
